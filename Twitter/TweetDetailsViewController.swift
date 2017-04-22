@@ -24,10 +24,10 @@ class TweetDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         profileImageView.layer.cornerRadius = 3
         profileImageView.clipsToBounds = true
-        
+
         favoriteButton.setImage(#imageLiteral(resourceName: "favorite"), for: UIControlState.normal)
         favoriteButton.setImage(#imageLiteral(resourceName: "favoriteSelected"), for: UIControlState.selected)
         

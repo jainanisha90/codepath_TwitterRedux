@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+   
         NotificationCenter.default.addObserver(forName: Notifications.userDidLogoutNotification.name, object: nil, queue: OperationQueue.main) { (Notification) in
             let vc = self.storyBoard.instantiateInitialViewController() as UIViewController!
             self.window?.rootViewController = vc
@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if User.currentUser != nil {
             // go to the logged in screen\
             print("Current user detected \(User.currentUser!.name!)")
-            let vc = storyBoard.instantiateViewController(withIdentifier: "TweetsViewController") as UIViewController
+            let vc = storyBoard.instantiateViewController(withIdentifier: "HamburgerViewController") as! HamburgerViewController
             window?.rootViewController = vc
         }
         return true

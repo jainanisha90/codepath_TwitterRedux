@@ -1,21 +1,20 @@
 //
-//  TweetsViewController.swift
+//  ProfileViewController.swift
 //  Twitter
 //
-//  Created by Anisha Jain on 4/13/17.
+//  Created by Anisha Jain on 4/21/17.
 //  Copyright © 2017 Anisha Jain. All rights reserved.
 //
 
 import UIKit
 import MBProgressHUD
 
-let reloadHomeTimeline = Notification.Name("reloadHomeTimeline")
-let addMyTweetToHomeTimeline = Notification.Name("addMyTweetToHomeTimeline")
+let reloadMentionsTimeline = Notification.Name("reloadMentionsTimeline")
+//let addMyTweetToHomeTimeline = Notification.Name("addMyTweetToHomeTimeline")
 
-class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
+class ProfileViewController: UIViewController , UITableViewDelegate, UITableViewDataSource, TweetCellDelegate{
 
     @IBOutlet weak var tableView: UITableView!
-    
     var tweets: [Tweet]!
     var refreshControl = UIRefreshControl()
     
@@ -26,35 +25,35 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 200
-
-        refreshControl.addTarget(self, action: #selector(loadHomeTimelineData), for: UIControlEvents.valueChanged)
+        
+        refreshControl.addTarget(self, action: #selector(loadMentionsTimelineData), for: UIControlEvents.valueChanged)
         tableView.insertSubview(refreshControl, at: 0)
         
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        loadHomeTimelineData()
+        loadMentionsTimelineData()
         
         // Adding listener to reload HomeTimeline
-        NotificationCenter.default.addObserver(forName: reloadHomeTimeline, object: nil, queue: OperationQueue.main) { (notification) in
+        NotificationCenter.default.addObserver(forName: reloadMentionsTimeline, object: nil, queue: OperationQueue.main) { (notification) in
             self.refreshControl.beginRefreshing()
-            self.loadHomeTimelineData()
+            self.loadMentionsTimelineData()
         }
         
-        // Adding listener to reload HomeTimeline
-        NotificationCenter.default.addObserver(forName: addMyTweetToHomeTimeline, object: nil, queue: OperationQueue.main) { (notification) in
-            print("got notification addMyTweetToHomeTimeline")
-            self.tweets.insert(notification.object as! Tweet, at: 0)
-            self.tableView.reloadData()
-        }
+//        // Adding listener to reload HomeTimeline
+//        NotificationCenter.default.addObserver(forName: addMyTweetToHomeTimeline, object: nil, queue: OperationQueue.main) { (notification) in
+//            print("got notification addMyTweetToHomeTimeline")
+//            self.tweets.insert(notification.object as! Tweet, at: 0)
+//            self.tableView.reloadData()
+//        }
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    func loadHomeTimelineData() {
-        TwitterClient.sharedInstance.homeTimelineWithParams(params: nil) { (tweets, error) in
+    func loadMentionsTimelineData() {
+        TwitterClient.sharedInstance.mentionsTimelineWithParams(params: nil) { (tweets, error) in
             self.tweets = tweets
             self.tableView.reloadData()
             
@@ -84,7 +83,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tweetCell(tweetCell: TweetCell, onReply reply: String?) {
         self.performSegue(withIdentifier: "replySegue", sender: tweetCell)
     }
-
+    
     func tweetCell(tweetCell: TweetCell, onRetweet retweet: String?) {
         let tweetId = getTweet(tweetCell).tweetId!
         MBProgressHUD.showAdded(to: self.view, animated: true)
@@ -145,6 +144,5 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
             tweetDetailsController.tweet = tweet
         }
     }
- 
 
 }

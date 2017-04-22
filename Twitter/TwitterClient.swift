@@ -73,6 +73,19 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
+    func mentionsTimelineWithParams(params: NSDictionary?, completion: @escaping (_ tweets: [Tweet]?, _ error: Error?) -> ()) {
+        get("1.1/statuses/mentions_timeline.json", parameters: params,
+            success: { (operation: URLSessionDataTask!, response: Any!) -> Void in
+                let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
+                completion(tweets, nil)
+                print("mentionstimeline: ", response)
+        }, failure: { (operation: URLSessionDataTask!, error: Error!) -> Void in
+            print("Error getting home timeline", error)
+            completion(nil, error)
+        })
+    }
+    
+    
     private func sendUpdate(params: Any?, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
         post("1.1/statuses/update.json", parameters: params,
              success: { (operation: URLSessionDataTask, response: Any) in
