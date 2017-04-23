@@ -27,16 +27,18 @@
                                 <state key="normal" title="Login With Twitter"/>
                                 <connections>
                                     <action selector="onLogin:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yiN-x0-wtz"/>
-                                    <segue destination="kVw-ZR-qS5" kind="presentation" identifier="loginSegue" id="oL8-kq-bee"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
+                    <connections>
+                        <segue destination="kVw-ZR-qS5" kind="show" identifier="loginSegue" id="ZdX-zq-0DI"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1788" y="-2265"/>
+            <point key="canvasLocation" x="1582" y="-2265"/>
         </scene>
         <!--HamburgerViewController-->
         <scene sceneID="3yt-u5-JWX">
@@ -413,10 +415,10 @@
             </objects>
             <point key="canvasLocation" x="1534" y="-739"/>
         </scene>
-        <!--Profile View Controller-->
+        <!--Mentions View Controller-->
         <scene sceneID="z1g-KY-yb5">
             <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="yT4-6A-RGJ" customClass="ProfileViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MentionsViewController" id="yT4-6A-RGJ" customClass="MentionsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BAp-9h-NR7"/>
                         <viewControllerLayoutGuide type="bottom" id="8Hd-6a-yiV"/>
@@ -553,7 +555,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="tableView" destination="BqI-AH-OIb" id="U0Y-p7-at4"/>
+                        <outlet property="tableView" destination="BqI-AH-OIb" id="DhT-Kl-Iem"/>
                         <segue destination="nCg-13-z1Q" kind="show" identifier="tweetDetailsSegue" id="t2w-S5-OXR"/>
                         <segue destination="Iks-JN-SEn" kind="presentation" identifier="replySegue" id="09V-qv-uAd"/>
                     </connections>
@@ -562,10 +564,10 @@
             </objects>
             <point key="canvasLocation" x="2288.8000000000002" y="64.31784107946028"/>
         </scene>
-        <!--Mentions View Controller-->
+        <!--Profile View Controller-->
         <scene sceneID="ybg-7a-ayW">
             <objects>
-                <viewController storyboardIdentifier="MentionsViewController" id="s3K-yE-A4x" customClass="MentionsViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="s3K-yE-A4x" customClass="ProfileViewController" customModule="Twitter" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="m2T-OQ-FvI"/>
                         <viewControllerLayoutGuide type="bottom" id="2R1-zP-shA"/>
@@ -573,13 +575,12 @@
                     <view key="view" contentMode="scaleToFill" id="rSR-Kb-Psx">
                         <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.63935151823850522" green="1" blue="0.52313891477056818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="I0t-tN-MXh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1o-Zy-vVq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3089" y="74"/>
+            <point key="canvasLocation" x="3088.8000000000002" y="73.313343328335833"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zVa-3f-rC1">
@@ -864,7 +865,7 @@
         <!--Navigation Controller-->
         <scene sceneID="l8D-Jf-XBb">
             <objects>
-                <navigationController storyboardIdentifier="ProfileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Gv4-B6-P4s" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MentionsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="Gv4-B6-P4s" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="WAh-TI-R2A">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -883,7 +884,7 @@
         <!--Navigation Controller-->
         <scene sceneID="FfS-28-HNt">
             <objects>
-                <navigationController storyboardIdentifier="MentionsNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="YkJ-Xp-fcU" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ProfileNavigationController" automaticallyAdjustsScrollViewInsets="NO" id="YkJ-Xp-fcU" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="9qW-UT-6ms">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
