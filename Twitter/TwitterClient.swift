@@ -90,8 +90,23 @@ class TwitterClient: BDBOAuth1SessionManager {
             success: { (operation: URLSessionDataTask!, response: Any!) -> Void in
                 let tweets = Tweet.tweetsWithArray(array: response as! [NSDictionary])
                 completion(tweets, nil)
-                print("usertimeline: ", response)
+                //print("usertimeline: ", response)
         }, failure: { (operation: URLSessionDataTask!, error: Error!) -> Void in
+            print("Error getting home timeline", error)
+            completion(nil, error)
+        })
+    }
+    
+    func getUserProfile(screenName: String, completion: @escaping (_ user: User?, _ error: Error?) -> ()) {
+        let params = ["screen_name": screenName]
+        print("tweet API: 1.1/users/show.json", params)
+        get("1.1/users/show.json", parameters: params,
+            success: { (operation: URLSessionDataTask!, response: Any!) -> Void in
+                print("user: ", response)
+                let user = User(dictionary: response as! NSDictionary)
+                completion(user, nil)
+                User.currentUser = user
+    }, failure: { (operation: URLSessionDataTask!, error: Error!) -> Void in
             print("Error getting home timeline", error)
             completion(nil, error)
         })
@@ -107,7 +122,6 @@ class TwitterClient: BDBOAuth1SessionManager {
             failure(error)
         }
     }
-    
     
     func newTweet(tweetMessage: String, success: @escaping () -> (), failure: @escaping (Error) -> ()) {
         let params = ["status": tweetMessage]

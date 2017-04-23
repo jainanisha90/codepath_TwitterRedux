@@ -285,7 +285,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1UB-uY-2UQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2161" y="1510"/>
+            <point key="canvasLocation" x="3089" y="1628"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AiR-gT-ajL">
@@ -376,9 +376,21 @@
                             <constraint firstItem="fRH-k4-jvr" firstAttribute="leading" secondItem="rSR-Kb-Psx" secondAttribute="leading" id="tok-ma-att"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="I0t-tN-MXh"/>
+                    <navigationItem key="navigationItem" id="I0t-tN-MXh">
+                        <barButtonItem key="leftBarButtonItem" title="Logout" id="kny-2F-9Gk">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="New" id="LcY-SV-LIC">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <segue destination="XBs-bT-pjt" kind="presentation" id="Zo3-Xm-8pk"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="fRH-k4-jvr" id="Z33-w6-tm6"/>
+                        <segue destination="nCg-13-z1Q" kind="show" identifier="tweetDetailsSegue" id="1Kj-MS-SkP"/>
+                        <segue destination="Iks-JN-SEn" kind="presentation" identifier="replySegue" id="jvi-4h-t6b"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w1o-Zy-vVq" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -390,7 +402,7 @@
             <objects>
                 <navigationController storyboardIdentifier="ComposeViewController" automaticallyAdjustsScrollViewInsets="NO" id="XBs-bT-pjt" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="6KH-wg-aKK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="6KH-wg-aKK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.0" green="0.66980415579999997" blue="0.94023269409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -402,7 +414,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q8h-by-cM9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2161" y="815"/>
+            <point key="canvasLocation" x="3089" y="899"/>
         </scene>
         <!--Reply View Controller-->
         <scene sceneID="8XM-2i-Z75">
@@ -462,7 +474,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cSk-Ng-4cm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1489" y="1510"/>
+            <point key="canvasLocation" x="2265" y="1660"/>
         </scene>
         <!--Tweet Details View Controller-->
         <scene sceneID="ENJ-JV-fzj">
@@ -644,14 +656,14 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JiY-BK-OdM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="769" y="817"/>
+            <point key="canvasLocation" x="1534" y="900"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="AUe-7T-PtO">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Iks-JN-SEn" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="1R2-Yn-c3Z">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="1R2-Yn-c3Z">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" red="0.0" green="0.66980415579999997" blue="0.94023269409999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -663,7 +675,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UfO-10-S4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1490" y="816"/>
+            <point key="canvasLocation" x="2266" y="899"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="l8D-Jf-XBb">
@@ -710,8 +722,8 @@
         <image name="retweet" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="i2P-qX-hJp"/>
-        <segue reference="RTK-CQ-HCB"/>
-        <segue reference="uRm-H0-Q3o"/>
+        <segue reference="1Kj-MS-SkP"/>
+        <segue reference="jvi-4h-t6b"/>
+        <segue reference="Zo3-Xm-8pk"/>
     </inferredMetricsTieBreakers>
 </document>

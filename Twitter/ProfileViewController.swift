@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
 
     @IBOutlet weak var tableView: UITableView!
     
+    var showProfile = false
+    var user: User?
     var tweets: [Tweet]!
     var refreshControl = UIRefreshControl()
     
@@ -23,6 +25,10 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         let nib = UINib(nibName: "TweetCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "TweetCell")
+        
+        let profileHeaderViewNib = UINib(nibName: "ProfileHeaderView", bundle: nil)
+        tableView.register(profileHeaderViewNib, forCellReuseIdentifier: "ProfileHeaderView")
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -33,18 +39,29 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
-        loadUserTimelineData()
         // Adding listener to reload HomeTimeline
         NotificationCenter.default.addObserver(forName: reloadUserTimeline, object: nil, queue: OperationQueue.main) { (notification) in
             self.refreshControl.beginRefreshing()
             self.loadUserTimelineData()
         }
-        
+        getUserProfile()
+        loadUserTimelineData()
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func getUserProfile() {
+        let currentUser = User.currentUser
+        TwitterClient.sharedInstance.getUserProfile(screenName: currentUser!.screenName!) { (user, error) in
+            //print("name", user?.name)
+            self.showProfile = true
+            self.user = user
+            self.tableView.reloadData()
+        }
     }
     
     func loadUserTimelineData() {
@@ -58,19 +75,31 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tweets?.count ?? 0
+        let tweetCount = tweets?.count ?? 0
+        return showProfile ? (tweetCount + 1) : tweetCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
-        
-        cell.tweet = tweets[indexPath.row]
-        cell.delegate = self
-        return cell
-        
+        if (showProfile && indexPath.row == 0) {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileHeaderView", for: indexPath) as! ProfileHeaderView
+            cell.user = self.user
+            return cell
+        } else {
+            
+            let rowIndex = showProfile ? (indexPath.row - 1) : indexPath.row
+            
+            let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
+            
+            cell.tweet = tweets[rowIndex]
+            cell.delegate = self
+            return cell
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0 && showProfile {
+            return
+        }
         let cell = tableView.cellForRow(at: indexPath)
         self.performSegue(withIdentifier: "tweetDetailsSegue", sender: cell)
     }
@@ -119,7 +148,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     private func getTweet(_ tweetCell: TweetCell) -> Tweet {
         let indexPath = tableView.indexPath(for: tweetCell as UITableViewCell)
-        let tweet = tweets[(indexPath?.row)!]
+        let rowIndex = showProfile ? (indexPath!.row - 1) : indexPath!.row
+        let tweet = tweets[rowIndex]
         return tweet
     }
     
