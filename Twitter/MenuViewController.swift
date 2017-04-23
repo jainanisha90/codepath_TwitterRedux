@@ -26,7 +26,6 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         tableView.delegate = self
         tableView.dataSource = self
         
-        print("Menu VIew controller didload")
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         profileNavigationController = storyBoard.instantiateViewController(withIdentifier: "ProfileNavigationController")
         tweetsNavigationController = storyBoard.instantiateViewController(withIdentifier: "TweetsNavigationController")

@@ -44,7 +44,9 @@ class User: NSObject {
             profileImageUrl = URL(string: profileImageUrlString)
         }
         
-        if let backgroundImageUrlString = dictionary["profile_banner_url"] as? String {
+        if let bannerImageUrlString = dictionary["profile_banner_url"] as? String {
+            backgroundImageUrl = URL(string: bannerImageUrlString)
+        } else if let backgroundImageUrlString = dictionary["profile_background_image_url"] as? String {
             backgroundImageUrl = URL(string: backgroundImageUrlString)
         }
         

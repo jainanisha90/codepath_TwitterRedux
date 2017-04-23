@@ -376,17 +376,7 @@
                             <constraint firstItem="fRH-k4-jvr" firstAttribute="leading" secondItem="rSR-Kb-Psx" secondAttribute="leading" id="tok-ma-att"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="I0t-tN-MXh">
-                        <barButtonItem key="leftBarButtonItem" title="Logout" id="kny-2F-9Gk">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="New" id="LcY-SV-LIC">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <connections>
-                                <segue destination="XBs-bT-pjt" kind="presentation" id="Zo3-Xm-8pk"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="I0t-tN-MXh"/>
                     <connections>
                         <outlet property="tableView" destination="fRH-k4-jvr" id="Z33-w6-tm6"/>
                         <segue destination="nCg-13-z1Q" kind="show" identifier="tweetDetailsSegue" id="1Kj-MS-SkP"/>
@@ -722,8 +712,8 @@
         <image name="retweet" width="16" height="16"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="uRm-H0-Q3o"/>
         <segue reference="1Kj-MS-SkP"/>
         <segue reference="jvi-4h-t6b"/>
-        <segue reference="Zo3-Xm-8pk"/>
     </inferredMetricsTieBreakers>
 </document>

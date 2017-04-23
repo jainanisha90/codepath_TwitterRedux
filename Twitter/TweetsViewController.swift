@@ -74,8 +74,28 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         cell.tweet = tweets[indexPath.row]
         cell.delegate = self
+        
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTapOnImage(sender:)))
+        tapGesture.numberOfTapsRequired = 1
+
+        cell.profileImageView.addGestureRecognizer(tapGesture)
+        cell.profileImageView.isUserInteractionEnabled = true
+        
         return cell
         
+    }
+    
+    func handleTapOnImage(sender: UITapGestureRecognizer) {
+        let tapLocation = sender.location(in: self.tableView)
+        let indexPath = self.tableView.indexPathForRow(at: tapLocation)
+        let tweet = tweets[(indexPath?.row)!]
+        let user = tweet.user!
+        
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let profileViewController = storyBoard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        profileViewController.user = user
+        self.navigationController?.pushViewController(profileViewController, animated: true)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -46,7 +46,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         }
         getUserProfile()
         loadUserTimelineData()
-
     }
     
     override func didReceiveMemoryWarning() {
@@ -55,8 +54,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func getUserProfile() {
-        let currentUser = User.currentUser
-        TwitterClient.sharedInstance.getUserProfile(screenName: currentUser!.screenName!) { (user, error) in
+        let userScreenName: String?
+        if user != nil {
+            userScreenName = user?.screenName
+        } else {
+            userScreenName = User.currentUser?.screenName
+        }
+        TwitterClient.sharedInstance.getUserProfile(screenName: userScreenName!) { (user, error) in
             //print("name", user?.name)
             self.showProfile = true
             self.user = user
@@ -65,7 +69,13 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func loadUserTimelineData() {
-        TwitterClient.sharedInstance.userTimelineWithParams(params: nil) { (tweets, error) in
+        let userScreenName: String?
+        if user != nil {
+            userScreenName = user?.screenName
+        } else {
+            userScreenName = User.currentUser?.screenName
+        }
+        TwitterClient.sharedInstance.userTimelineWithParams(screenName: userScreenName!) { (tweets, error) in
             self.tweets = tweets
             self.tableView.reloadData()
             
@@ -85,9 +95,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             cell.user = self.user
             return cell
         } else {
-            
             let rowIndex = showProfile ? (indexPath.row - 1) : indexPath.row
-            
             let cell = tableView.dequeueReusableCell(withIdentifier: "TweetCell", for: indexPath) as! TweetCell
             
             cell.tweet = tweets[rowIndex]
@@ -151,10 +159,6 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let rowIndex = showProfile ? (indexPath!.row - 1) : indexPath!.row
         let tweet = tweets[rowIndex]
         return tweet
-    }
-    
-    @IBAction func onLogout(_ sender: Any) {
-        TwitterClient.sharedInstance.logout()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

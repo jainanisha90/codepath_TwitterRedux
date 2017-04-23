@@ -29,6 +29,8 @@ class ProfileHeaderView: UITableViewCell {
             tweetsCountLabel.text = "\(user!.tweetsCount!)"
         }
     }
+
+    
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -37,4 +39,6 @@ class ProfileHeaderView: UITableViewCell {
         profileImageView.layer.cornerRadius = 3
         profileImageView.clipsToBounds = true
     }
+    
+
 }
