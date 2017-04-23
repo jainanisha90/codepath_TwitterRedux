@@ -82,6 +82,7 @@ class ReplyViewController: UIViewController, UITextViewDelegate {
             TwitterClient.sharedInstance.reply(tweetMessage: tweetMessage, tweetId: tweetId!, success: {
                 MBProgressHUD.hide(for: self.view, animated: true)
                 NotificationCenter.default.post(name: reloadHomeTimeline, object: nil)
+                NotificationCenter.default.post(name: reloadUserTimeline, object: nil)
                 self.dismiss(animated: true, completion: nil)
             }, failure: { (error) in
                 print("Error during posting a tweet", error)

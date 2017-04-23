@@ -15,9 +15,9 @@ import UIKit
 
 class TweetCell: UITableViewCell {
 
-    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var screenNameLabel: UILabel!
+    @IBOutlet weak var profileImageView: UIImageView!
     @IBOutlet weak var postTextLabel: UILabel!
     @IBOutlet weak var createdAtLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
@@ -63,12 +63,6 @@ class TweetCell: UITableViewCell {
         let isFavorite = sender as! UIButton
         isFavorite.isSelected = !(isFavorite.isSelected)
         delegate?.tweetCell?(tweetCell: self, onFavorite: isFavorite.isSelected)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
 
 }

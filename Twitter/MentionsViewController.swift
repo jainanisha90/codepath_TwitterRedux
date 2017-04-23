@@ -9,9 +9,6 @@
 import UIKit
 import MBProgressHUD
 
-let reloadMentionsTimeline = Notification.Name("reloadMentionsTimeline")
-//let addMyTweetToHomeTimeline = Notification.Name("addMyTweetToHomeTimeline")
-
 class MentionsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, TweetCellDelegate {
 
     
@@ -22,6 +19,8 @@ class MentionsViewController: UIViewController, UITableViewDelegate, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib(nibName: "TweetCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "TweetCell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -33,18 +32,7 @@ class MentionsViewController: UIViewController, UITableViewDelegate, UITableView
         MBProgressHUD.showAdded(to: self.view, animated: true)
         
         loadMentionsTimelineData()
-        // Adding listener to reload HomeTimeline
-        NotificationCenter.default.addObserver(forName: reloadMentionsTimeline, object: nil, queue: OperationQueue.main) { (notification) in
-            self.refreshControl.beginRefreshing()
-            self.loadMentionsTimelineData()
-        }
-        
-        //        // Adding listener to reload HomeTimeline
-        //        NotificationCenter.default.addObserver(forName: addMyTweetToHomeTimeline, object: nil, queue: OperationQueue.main) { (notification) in
-        //            print("got notification addMyTweetToHomeTimeline")
-        //            self.tweets.insert(notification.object as! Tweet, at: 0)
-        //            self.tableView.reloadData()
-        //        }
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -92,6 +80,7 @@ class MentionsViewController: UIViewController, UITableViewDelegate, UITableView
         TwitterClient.sharedInstance.retweet(tweetId: tweetId, success: {
             MBProgressHUD.hide(for: self.view, animated: true)
             NotificationCenter.default.post(name: reloadHomeTimeline, object: nil)
+            NotificationCenter.default.post(name: reloadUserTimeline, object: nil)
         }, failure: { (error) in
             print("Error during posting a tweet", error)
             MBProgressHUD.hide(for: self.view, animated: true)
@@ -143,7 +132,4 @@ class MentionsViewController: UIViewController, UITableViewDelegate, UITableView
             tweetDetailsController.tweet = tweet
         }
     }
-    
-
-
 }

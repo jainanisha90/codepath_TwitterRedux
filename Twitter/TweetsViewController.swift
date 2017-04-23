@@ -22,6 +22,8 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let nib = UINib(nibName: "TweetCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "TweetCell")
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -92,6 +94,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance.retweet(tweetId: tweetId, success: {
             MBProgressHUD.hide(for: self.view, animated: true)
             NotificationCenter.default.post(name: reloadHomeTimeline, object: nil)
+            NotificationCenter.default.post(name: reloadUserTimeline, object: nil)
         }, failure: { (error) in
             print("Error during posting a tweet", error)
             MBProgressHUD.hide(for: self.view, animated: true)
