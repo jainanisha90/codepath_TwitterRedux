@@ -11,6 +11,7 @@ import UIKit
     @objc optional func tweetCell(tweetCell:TweetCell, onReply reply: String?)
     @objc optional func tweetCell(tweetCell:TweetCell, onRetweet retweet: String?)
     @objc optional func tweetCell(tweetCell:TweetCell, onFavorite favorite: Bool)
+    @objc optional func tweetCell(onTapProfileImage tweetCell:TweetCell)
 }
 
 class TweetCell: UITableViewCell {
@@ -44,6 +45,16 @@ class TweetCell: UITableViewCell {
         
         favoriteButton.setImage(#imageLiteral(resourceName: "favorite"), for: UIControlState.normal)
         favoriteButton.setImage(#imageLiteral(resourceName: "favoriteSelected"), for: UIControlState.selected)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(self.handleTapOnImage(sender:)))
+        tapGesture.numberOfTapsRequired = 1
+        
+        profileImageView.addGestureRecognizer(tapGesture)
+        profileImageView.isUserInteractionEnabled = true
+    }
+    
+    func handleTapOnImage(sender: UITapGestureRecognizer) {
+        delegate?.tweetCell?(onTapProfileImage: self)
     }
     
     override func layoutSubviews() {

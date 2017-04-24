@@ -29,6 +29,8 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
         let profileHeaderViewNib = UINib(nibName: "ProfileHeaderView", bundle: nil)
         tableView.register(profileHeaderViewNib, forCellReuseIdentifier: "ProfileHeaderView")
         
+        navigationController?.navigationBar.tintColor = .white
+        
         tableView.dataSource = self
         tableView.delegate = self
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -64,6 +66,7 @@ class ProfileViewController: UIViewController, UITableViewDelegate, UITableViewD
             //print("name", user?.name)
             self.showProfile = true
             self.user = user
+            self.title = user?.name
             self.tableView.reloadData()
         }
     }
